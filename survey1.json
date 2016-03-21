@@ -1,0 +1,19 @@
+{
+    "_id": "56f0588af9151c5f0c0599b6",
+    "type": "single",
+    "name": "PINGO helps me to understand the lecture’s contents better.",
+    "options": [
+        {
+            "_id": "56f0588af9151c5f0c0599b7",
+            "name": "Yes"
+        },
+        {
+            "_id": "56f0588af9151c5f0c0599b8",
+            "name": "No"
+        },
+        {
+            "_id": "56f0588af9151c5f0c0599b9",
+            "name": "I don’t know"
+        }
+    ]
+}
