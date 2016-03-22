@@ -5,9 +5,23 @@
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.2/angular.min.js"></script>
     </head>
     <body>
-        <div ng-controller="IndexCtrl" class="container">
-            <h1>{{ foo }}</h1>
+        <div class="container">
+            <form name="surveyForm"  ng-controller="IndexCtrl" novalidate>
+                <h1>{{ foo }}</h1>
+                <div class="alert alert-success" ng-show="success">
+                    <strong>Sie haben abgestimmt!</strong>
+                </div>
+                <div class="alert alert-danger" ng-show="error">
+                    <strong>Sie haben nichts ausgewählt!</strong>
+                </div>
+                <div ng-repeat="option in options" class="well">
+                    <input type="radio" ng-model="form.option" ng-value="option._id" ng-required="error"> {{ option.name }}
+                </div>
+                <input type="submit" value="Abschicken" ng-click="vote(form)">
+            </form>
         </div>
+
+        
 
         <script src="scripts.js"></script>
     </body>
