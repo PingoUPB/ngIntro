@@ -1,0 +1,19 @@
+{
+    "_id": "56f0588af9151c5f0c0599b6",
+    "type": "multi",
+    "name": "Which colors do you like?",
+    "options": [
+        {
+            "_id": "56f0588af9151c5f0c0599b7",
+            "name": "Blue"
+        },
+        {
+            "_id": "56f0588af9151c5f0c0599b8",
+            "name": "Red"
+        },
+        {
+            "_id": "56f0588af9151c5f0c0599b9",
+            "name": "Green"
+        }
+    ]
+}
