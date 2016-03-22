@@ -48,8 +48,7 @@ introApp.controller('IndexCtrl', function ($scope, Survey) {
 
 introApp.factory('Survey', function($http) {
 
-    //var surveys = ['survey1', 'survey2', 'survey3', 'survey4'];
-    var surveys = ['survey3'];
+    var surveys = ['survey1', 'survey2', 'survey3', 'survey4'];
     var random = surveys[Math.floor(Math.random()*surveys.length)];
 
     var survey = {}; 
