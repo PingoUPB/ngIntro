@@ -1,16 +1,20 @@
 var introApp = angular.module('introApp', []);
 
-introApp.controller('IndexCtrl', function ($scope, $http, Survey) {
-    $scope.foo = "";
+introApp.controller('IndexCtrl', function ($scope, Survey) {
+    $scope.name = "";
     $scope.options = [];
+    $scope.type = "";
     $scope.form = {
-        option: null
+        option: null,
+        options: []
     };
     $scope.success = false;
     $scope.error = false;
 
     Survey.get.then(function(response) {
-        $scope.foo = response.data.name;
+        $scope.name = response.data.name;
+        $scope.type = response.data.type;
+        $scope.max_answers = response.data.max_answers;
         $scope.options = response.data.options;
         console.log(response);
     },function(response){
@@ -19,8 +23,18 @@ introApp.controller('IndexCtrl', function ($scope, $http, Survey) {
     });
 
     $scope.vote = function(form){
-        if(form.option !== null){
-           Survey.post(form).then(function(response) {
+        console.log(form);
+        var cleanoptions = [];
+        if($scope.type === "text")
+            cleanoptions = form.options.filter(function(element){
+                return element !== undefined && element.length > 0;
+            });
+        if($scope.type === "single" && form.option !== null
+            || $scope.type === "multi" && form.options.length > 0
+            || $scope.type === "number" && !isNaN(parseFloat(form.option))
+            || $scope.type === "text" && cleanoptions.length > 0){
+            form.options = cleanoptions;
+            Survey.post(form).then(function(response) {
                 $scope.success = true;
                 $scope.error = false;
             });
@@ -33,10 +47,15 @@ introApp.controller('IndexCtrl', function ($scope, $http, Survey) {
 });
 
 introApp.factory('Survey', function($http) {
+
+    //var surveys = ['survey1', 'survey2', 'survey3', 'survey4'];
+    var surveys = ['survey3'];
+    var random = surveys[Math.floor(Math.random()*surveys.length)];
+
     var survey = {}; 
     survey.get = $http({
         method: 'GET',
-        url: '/survey1.json'
+        url: '/' + random + '.json'
     });
     survey.post = function(form){ 
         return $http({
@@ -46,4 +65,15 @@ introApp.factory('Survey', function($http) {
         });
     };
     return survey;
+});
+
+introApp.controller('InputCtrl', function ($scope) {
+    $scope.form.options = [""];
+    $scope.add = function(){
+        $scope.form.options.push("");
+    };
+
+    $scope.remove = function(index){
+        $scope.form.options.splice(index, 1);
+    };
 });
